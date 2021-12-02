@@ -1,22 +1,16 @@
-package JFrame;
+package graphique;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
 import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JList;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 public class AjoutDoc {
@@ -62,21 +56,21 @@ public class AjoutDoc {
 		frame.setBounds(100, 100, 1158, 760);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("Ajouter un document");
 		btnNewButton.setForeground(Color.GREEN);
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.setBounds(61, 37, 204, 62);
 		frame.getContentPane().add(btnNewButton);
-		
+
 		JButton btnSupprimerUnDocument = new JButton("Supprimer un document");
 		btnSupprimerUnDocument.setForeground(Color.RED);
 		btnSupprimerUnDocument.setBackground(Color.LIGHT_GRAY);
 		btnSupprimerUnDocument.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnSupprimerUnDocument.setBounds(305, 37, 204, 62);
 		frame.getContentPane().add(btnSupprimerUnDocument);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(245, 245, 245));
 		panel.setForeground(new Color(192, 192, 192));
@@ -84,7 +78,7 @@ public class AjoutDoc {
 		panel.setBounds(20, 109, 877, 559);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		txtAuteur = new JTextField();
 		txtAuteur.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtAuteur.setBackground(new Color(211, 211, 211));
@@ -93,12 +87,12 @@ public class AjoutDoc {
 		txtAuteur.setText("Auteur");
 		panel.add(txtAuteur);
 		txtAuteur.setColumns(15);
-		
+
 		JList list = new JList();
 		list.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null), null));
 		list.setBounds(225, 24, 633, 503);
 		panel.add(list);
-		
+
 		txtTitre = new JTextField();
 		txtTitre.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtTitre.setBackground(new Color(211, 211, 211));
@@ -107,7 +101,7 @@ public class AjoutDoc {
 		txtTitre.setText("Titre");
 		txtTitre.setColumns(15);
 		panel.add(txtTitre);
-		
+
 		txtAnne = new JTextField();
 		txtAnne.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtAnne.setBackground(new Color(211, 211, 211));
@@ -116,7 +110,7 @@ public class AjoutDoc {
 		txtAnne.setText("Ann\u00E9e de publication");
 		txtAnne.setColumns(15);
 		panel.add(txtAnne);
-		
+
 		txtEdition = new JTextField();
 		txtEdition.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtEdition.setBackground(new Color(211, 211, 211));
@@ -125,7 +119,7 @@ public class AjoutDoc {
 		txtEdition.setText("Editeur");
 		txtEdition.setColumns(15);
 		panel.add(txtEdition);
-		
+
 		txtGenre = new JTextField();
 		txtGenre.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtGenre.setBackground(new Color(211, 211, 211));
@@ -134,7 +128,7 @@ public class AjoutDoc {
 		txtGenre.setText("Genre");
 		txtGenre.setColumns(15);
 		panel.add(txtGenre);
-		
+
 		txtTypeDeDocument = new JTextField();
 		txtTypeDeDocument.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtTypeDeDocument.setBackground(new Color(211, 211, 211));
@@ -143,7 +137,7 @@ public class AjoutDoc {
 		txtTypeDeDocument.setText("Type de document");
 		txtTypeDeDocument.setColumns(15);
 		panel.add(txtTypeDeDocument);
-		
+
 		txtClassification = new JTextField();
 		txtClassification.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtClassification.setBackground(new Color(211, 211, 211));
