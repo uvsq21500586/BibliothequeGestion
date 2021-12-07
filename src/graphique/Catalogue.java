@@ -77,23 +77,23 @@ public class Catalogue {
 		panelFiltres = new JPanel();
 		panelFiltres.setBackground(new Color(100, 149, 237));
 		panelFiltres.setBorder(new TitledBorder(null, "Filtres", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelFiltres.setBounds(10, 10, 151, 243);
+		panelFiltres.setBounds(10, 10, 180, 243);
 		frameCatalogue.getContentPane().add(panelFiltres);
 		panelFiltres.setLayout(null);
 
 		buttonAjoutFiltre = new JButton("Ajouter un filtre");
-		buttonAjoutFiltre.setBounds(10, 22, 118, 21);
+		buttonAjoutFiltre.setBounds(15, 22, 150, 21);
 		panelFiltres.add(buttonAjoutFiltre);
 
 		panelTri = new JPanel();
 		panelTri.setBackground(new Color(100, 149, 237));
 		panelTri.setBorder(new TitledBorder(null, "Tris", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelTri.setBounds(171, 10, 213, 243);
+		panelTri.setBounds(200, 10, 180, 243);
 		frameCatalogue.getContentPane().add(panelTri);
 		panelTri.setLayout(null);
 
 		buttonAjoutTri = new JButton("Ajouter un tri");
-		buttonAjoutTri.setBounds(43, 21, 135, 21);
+		buttonAjoutTri.setBounds(15, 21, 150, 21);
 		panelTri.add(buttonAjoutTri);
 
 		buttonEmprunter = new JButton("Emprunter");
