@@ -1,24 +1,18 @@
-package JFrame;
+package graphique;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
 import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
-import javax.swing.JLabel;
 
 public class AjoutDoc {
 
@@ -64,21 +58,21 @@ public class AjoutDoc {
 		frame.setBounds(100, 100, 1158, 760);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JButton btnAjouterDoc = new JButton("Ajouter un document");
 		btnAjouterDoc.setForeground(Color.GREEN);
 		btnAjouterDoc.setBackground(Color.LIGHT_GRAY);
 		btnAjouterDoc.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAjouterDoc.setBounds(61, 37, 204, 62);
 		frame.getContentPane().add(btnAjouterDoc);
-		
+
 		JButton btnSupprimerDoc = new JButton("Supprimer un document");
 		btnSupprimerDoc.setForeground(Color.RED);
 		btnSupprimerDoc.setBackground(Color.LIGHT_GRAY);
 		btnSupprimerDoc.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnSupprimerDoc.setBounds(305, 37, 204, 62);
 		frame.getContentPane().add(btnSupprimerDoc);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(245, 245, 245));
 		panel.setForeground(new Color(192, 192, 192));
@@ -86,7 +80,7 @@ public class AjoutDoc {
 		panel.setBounds(20, 109, 877, 559);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		txtAuteur = new JTextField();
 		txtAuteur.setToolTipText("");
 		txtAuteur.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
@@ -96,12 +90,12 @@ public class AjoutDoc {
 		txtAuteur.setText("Auteur");
 		panel.add(txtAuteur);
 		txtAuteur.setColumns(15);
-		
+
 		JList list = new JList();
 		list.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null), null));
 		list.setBounds(234, 48, 633, 503);
 		panel.add(list);
-		
+
 		txtTitre = new JTextField();
 		txtTitre.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtTitre.setBackground(new Color(211, 211, 211));
@@ -110,7 +104,7 @@ public class AjoutDoc {
 		txtTitre.setText("Titre");
 		txtTitre.setColumns(15);
 		panel.add(txtTitre);
-		
+
 		txtAnnee = new JTextField();
 		txtAnnee.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtAnnee.setBackground(new Color(211, 211, 211));
@@ -119,7 +113,7 @@ public class AjoutDoc {
 		txtAnnee.setText("Ann\u00E9e de publication");
 		txtAnnee.setColumns(15);
 		panel.add(txtAnnee);
-		
+
 		txtEdition = new JTextField();
 		txtEdition.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtEdition.setBackground(new Color(211, 211, 211));
@@ -128,7 +122,7 @@ public class AjoutDoc {
 		txtEdition.setText("Editeur");
 		txtEdition.setColumns(15);
 		panel.add(txtEdition);
-		
+
 		txtGenre = new JTextField();
 		txtGenre.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtGenre.setBackground(new Color(211, 211, 211));
@@ -137,7 +131,7 @@ public class AjoutDoc {
 		txtGenre.setText("Genre");
 		txtGenre.setColumns(15);
 		panel.add(txtGenre);
-		
+
 		txtTypeDoc = new JTextField();
 		txtTypeDoc.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtTypeDoc.setBackground(new Color(211, 211, 211));
@@ -146,7 +140,7 @@ public class AjoutDoc {
 		txtTypeDoc.setText("Type de document");
 		txtTypeDoc.setColumns(15);
 		panel.add(txtTypeDoc);
-		
+
 		txtClassification = new JTextField();
 		txtClassification.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		txtClassification.setBackground(new Color(211, 211, 211));
@@ -155,12 +149,12 @@ public class AjoutDoc {
 		txtClassification.setText("Classification");
 		txtClassification.setColumns(15);
 		panel.add(txtClassification);
-		
+
 		JLabel lblNewLabel = new JLabel("Recherche :");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setBounds(394, 3, 103, 37);
 		panel.add(lblNewLabel);
-		
+
 		textRecherche = new JTextField();
 		textRecherche.setBounds(492, 10, 292, 28);
 		panel.add(textRecherche);
