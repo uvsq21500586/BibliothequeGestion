@@ -1,20 +1,17 @@
 package graphique;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 public class Messagerie {
 
-	private JFrame frame;
-	private JTextField textFieldSujetMsg;
-	private JTextField textFieldMail;
+	private JFrame frameMessagerie;
 
 	/**
 	 * Launch the application.
@@ -24,7 +21,7 @@ public class Messagerie {
 			public void run() {
 				try {
 					Messagerie window = new Messagerie();
-					window.frame.setVisible(true);
+					window.frameMessagerie.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,62 +40,33 @@ public class Messagerie {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 876, 695);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frameMessagerie = new JFrame();
+		frameMessagerie.getContentPane().setBackground(new Color(224, 255, 255));
+		frameMessagerie.setTitle("Messagerie");
+		frameMessagerie.setBounds(100, 100, 650, 450);
+		frameMessagerie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameMessagerie.getContentPane().setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("Sujet");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_1.setBounds(60, 186, 78, 30);
-		frame.getContentPane().add(lblNewLabel_1);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(255, 47, 371, 356);
+		frameMessagerie.getContentPane().add(scrollPane_1);
 
-		textFieldSujetMsg = new JTextField();
-		textFieldSujetMsg.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldSujetMsg.setBounds(227, 188, 535, 30);
-		frame.getContentPane().add(textFieldSujetMsg);
-		textFieldSujetMsg.setColumns(10);
-
-		JButton btnSendMsg = new JButton("ENVOYER");
-		btnSendMsg.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnSendMsg.setBounds(60, 582, 144, 53);
-		frame.getContentPane().add(btnSendMsg);
-
-		JButton btnCancelMsg = new JButton("ANNULER");
-		btnCancelMsg.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnCancelMsg.setBounds(634, 580, 144, 57);
-		frame.getContentPane().add(btnCancelMsg);
-
-		JLabel lblNewLabel = new JLabel("Message");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
-		lblNewLabel.setBounds(358, 244, 119, 24);
-		frame.getContentPane().add(lblNewLabel);
-
-		JLabel lblNewLabel_2 = new JLabel(
-				"Une remarque, une suggestion ? N'h\u00E9sitez pas \u00E0 nous \u00E9crire ! ");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
-		lblNewLabel_2.setBounds(130, 0, 632, 69);
-		frame.getContentPane().add(lblNewLabel_2);
+		JTextPane textPaneMessage = new JTextPane();
+		scrollPane_1.setViewportView(textPaneMessage);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(60, 280, 716, 265);
-		frame.getContentPane().add(scrollPane);
+		scrollPane.setBounds(10, 47, 230, 356);
+		frameMessagerie.getContentPane().add(scrollPane);
 
-		JTextArea textAreaMsg = new JTextArea();
-		scrollPane.setViewportView(textAreaMsg);
-		textAreaMsg.setLineWrap(true);
-		textAreaMsg.setWrapStyleWord(true);
-		textAreaMsg.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		JList listMessages = new JList();
+		scrollPane.setViewportView(listMessages);
 
-		JLabel lblNewLabel_3 = new JLabel("Destinataire");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_3.setBounds(60, 127, 131, 30);
-		frame.getContentPane().add(lblNewLabel_3);
+		JButton buttonNouveauMessage = new JButton("Nouveau message");
+		buttonNouveauMessage.setBounds(10, 10, 175, 27);
+		frameMessagerie.getContentPane().add(buttonNouveauMessage);
 
-		textFieldMail = new JTextField();
-		textFieldMail.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldMail.setBounds(227, 127, 535, 30);
-		frame.getContentPane().add(textFieldMail);
-		textFieldMail.setColumns(10);
+		JButton buttonSupprimerMessage = new JButton("Supprimer message");
+		buttonSupprimerMessage.setBounds(195, 10, 209, 27);
+		frameMessagerie.getContentPane().add(buttonSupprimerMessage);
 	}
 }
