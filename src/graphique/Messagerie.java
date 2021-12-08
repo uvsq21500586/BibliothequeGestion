@@ -66,7 +66,11 @@ public class Messagerie {
 		frameMessagerie.getContentPane().add(buttonNouveauMessage);
 
 		JButton buttonSupprimerMessage = new JButton("Supprimer message");
-		buttonSupprimerMessage.setBounds(195, 10, 209, 27);
+		buttonSupprimerMessage.setBounds(195, 10, 175, 27);
 		frameMessagerie.getContentPane().add(buttonSupprimerMessage);
+
+		JButton buttonRetour = new JButton("Retour");
+		buttonRetour.setBounds(380, 10, 175, 27);
+		frameMessagerie.getContentPane().add(buttonRetour);
 	}
 }
