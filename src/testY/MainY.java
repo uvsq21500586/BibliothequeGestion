@@ -4,7 +4,7 @@ import connexion.AccesJDBC;
 import graphique.Authentification;
 
 public class MainY {
-	static String chaineconnexionJDBC = "jdbc:sqlserver://LAPTOP-DO4863GA\\SQLEXPRESS;" + "databaseName=Formation;"
+	static String chaineconnexionJDBC = "jdbc:sqlserver://LAPTOP-DO4863GA\\SQLEXPRESS;" + "databaseName=Pgi;"
 			+ "user=sa;password=sa";
 
 	public static void main(String[] args) {
