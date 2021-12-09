@@ -96,8 +96,8 @@ public class AjoutDoc {
 					Connection con = DriverManager.getConnection(url,user,mdp);
 					String sql= "insert into Auteurs(nom,prenom,dateNaissance,dateDeces)values(?,?,?,?)";	
 					String sql1 ="insert into Documents(titre,sousTitre,dateEdition,codeReference,typeDocument)values(?,?,?,?,?)";
-					String sql2= "insert into Editeurs(nomEditeur,prenomEditeur,adresse,siteWeb,telephone)values(?,?,?,?,?)";
-					String sql3="insert into Themes(theme)values(?)";
+					String sql2= "insert into Editeurs(nom,prenom,adresse,siteWeb,telephone)values(?,?,?,?,?)";
+					String sql3="insert into Themes(nom)values(?)";
 					PreparedStatement stm = con.prepareStatement(sql);	
 					PreparedStatement stm1 = con.prepareStatement(sql1);
 					PreparedStatement stm2 = con.prepareStatement(sql2);
@@ -150,7 +150,7 @@ public class AjoutDoc {
 							Connection con = DriverManager.getConnection(url,user,mdp);
 							
 			                  String id;		                
-			                //  id  = id.getText();
+			                  
 			                  String sql = "delete from Documents where id =?";
 			                  PreparedStatement stm = con.prepareStatement(sql);
 			                  
