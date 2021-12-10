@@ -25,6 +25,8 @@ import javax.swing.border.EtchedBorder;
 import net.proteanit.sql.DbUtils;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AjoutDoc {
 
@@ -148,18 +150,14 @@ public class AjoutDoc {
 						String mdp = "1234";
 						
 							Connection con = DriverManager.getConnection(url,user,mdp);
-							
-			                  String id;		                
-			                  
-			                  String sql = "delete from Documents where id =?";
-			                  PreparedStatement stm = con.prepareStatement(sql);
-			                  
-			               //   stm.setString(1, id);
-			                  stm.executeUpdate();		                  
+            
+						 String nom = table.getValueAt(table.getSelectedRow(), 0).toString();
+					String query = "delete from Documents where id = '" + nom + "'";
+					   PreparedStatement stm1 = con.prepareStatement(query);
+			                  stm1.executeUpdate();		                  
 	                            
 							con.close();
-				
-					}
+				 }
 					 
 			     catch (SQLException e1) {
 					e1.printStackTrace();
