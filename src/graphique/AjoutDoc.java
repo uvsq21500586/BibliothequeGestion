@@ -32,7 +32,7 @@ public class AjoutDoc {
 
 	JFrame frame;
 	private JTextField textRecherche;
-	private JButton btnNewButton;
+	private JButton btnAfficher;
 	private JTable table;
 	private JTextField prenom;
 	private JTextField dateDeces;
@@ -84,9 +84,9 @@ public class AjoutDoc {
 		frame.getContentPane().setBackground(new Color(240, 248, 255));
 		frame.setBounds(100, 100, 1250, 820);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
 		JButton btnAjouterDoc = new JButton("Ajouter un document");
+		btnAjouterDoc.setBounds(60, 10, 204, 62);
 		btnAjouterDoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -128,20 +128,23 @@ public class AjoutDoc {
 					stm3.setString(1, theme.getText());
 					stm.executeUpdate();stm1.executeUpdate();stm2.executeUpdate();stm3.executeUpdate();
 					con.close();
+					afficher();
 				}
 						
 				catch (SQLException e1)
 		         {
 		 e1.printStackTrace();
 		 } 		
+				
 			}
 		});
+		frame.getContentPane().setLayout(null);
 		btnAjouterDoc.setForeground(Color.GREEN);
 		btnAjouterDoc.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnAjouterDoc.setBounds(61, 37, 204, 62);
 		frame.getContentPane().add(btnAjouterDoc);
 		
 		JButton btnSupprimerDoc = new JButton("Supprimer un document");
+		btnSupprimerDoc.setBounds(305, 10, 204, 62);
 		btnSupprimerDoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 try {
@@ -157,6 +160,7 @@ public class AjoutDoc {
 			                  stm1.executeUpdate();		                  
 	                            
 							con.close();
+							afficher();
 				 }
 					 
 			     catch (SQLException e1) {
@@ -167,20 +171,19 @@ public class AjoutDoc {
 		});
 		btnSupprimerDoc.setForeground(Color.RED);
 		btnSupprimerDoc.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnSupprimerDoc.setBounds(305, 37, 204, 62);
 		frame.getContentPane().add(btnSupprimerDoc);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(20, 82, 1206, 691);
 		panel.setBackground(new Color(245, 245, 245));
 		panel.setForeground(new Color(192, 192, 192));
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(20, 109, 1206, 639);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Recherche :");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(555, 3, 103, 37);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
+		lblNewLabel.setBounds(555, 3, 137, 37);
 		panel.add(lblNewLabel);
 		
 		textRecherche = new JTextField();
@@ -189,134 +192,231 @@ public class AjoutDoc {
 		textRecherche.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(464, 48, 732, 581);
+		scrollPane.setBounds(464, 48, 732, 633);
 		panel.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
 		prenom = new JTextField();
-		prenom.setBounds(277, 48, 140, 28);
+		prenom.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		prenom.setBounds(119, 81, 298, 28);
 		panel.add(prenom);
 		prenom.setColumns(10);
 		
 		dateDeces = new JTextField();
+		dateDeces.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		dateDeces.setColumns(10);
-		dateDeces.setBounds(277, 86, 140, 28);
+		dateDeces.setBounds(314, 121, 103, 28);
 		panel.add(dateDeces);
 		
 		dateNaissance = new JTextField();
+		dateNaissance.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		dateNaissance.setColumns(10);
-		dateNaissance.setBounds(127, 86, 140, 28);
+		dateNaissance.setBounds(117, 119, 103, 28);
 		panel.add(dateNaissance);
 		
 		nom = new JTextField();
+		nom.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		nom.setColumns(10);
-		nom.setBounds(127, 48, 140, 28);
+		nom.setBounds(119, 43, 298, 28);
 		panel.add(nom);
 		
 		JLabel lblNewLabel_1 = new JLabel("Auteur");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(10, 58, 103, 43);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_1.setBounds(209, -2, 103, 43);
 		panel.add(lblNewLabel_1);
 		
 		lblNewLabel_2 = new JLabel("Document");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_2.setBounds(10, 145, 96, 43);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_2.setBounds(197, 155, 115, 43);
 		panel.add(lblNewLabel_2);
 		
 		sousTitre = new JTextField();
+		sousTitre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		sousTitre.setColumns(10);
-		sousTitre.setBounds(127, 183, 290, 28);
+		sousTitre.setBounds(127, 246, 290, 28);
 		panel.add(sousTitre);
 		
 		titre = new JTextField();
+		titre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		titre.setColumns(10);
-		titre.setBounds(127, 145, 290, 28);
+		titre.setBounds(127, 208, 290, 28);
 		panel.add(titre);
 		
 		codeReference = new JTextField();
+		codeReference.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		codeReference.setColumns(10);
-		codeReference.setBounds(127, 259, 290, 28);
+		codeReference.setBounds(127, 322, 290, 28);
 		panel.add(codeReference);
 		
 		dateEdition = new JTextField();
+		dateEdition.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		dateEdition.setColumns(10);
-		dateEdition.setBounds(127, 221, 290, 28);
+		dateEdition.setBounds(127, 284, 290, 28);
 		panel.add(dateEdition);
 		
 		typeDocument = new JTextField();
+		typeDocument.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		typeDocument.setColumns(10);
-		typeDocument.setBounds(127, 297, 290, 28);
+		typeDocument.setBounds(127, 363, 290, 28);
 		panel.add(typeDocument);
 		
 		lblNewLabel_3 = new JLabel("Editeur");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3.setBounds(10, 370, 96, 37);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_3.setBounds(209, 401, 96, 37);
 		panel.add(lblNewLabel_3);
 		
 		nomEditeur = new JTextField();
+		nomEditeur.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		nomEditeur.setColumns(10);
-		nomEditeur.setBounds(127, 370, 290, 28);
+		nomEditeur.setBounds(127, 437, 290, 28);
 		panel.add(nomEditeur);
 		
 		prenomEditeur = new JTextField();
+		prenomEditeur.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		prenomEditeur.setColumns(10);
-		prenomEditeur.setBounds(127, 408, 290, 28);
+		prenomEditeur.setBounds(127, 475, 290, 28);
 		panel.add(prenomEditeur);
 		
 		adresse = new JTextField();
+		adresse.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		adresse.setColumns(10);
-		adresse.setBounds(127, 446, 290, 28);
+		adresse.setBounds(127, 513, 290, 28);
 		panel.add(adresse);
 		
 		siteWeb = new JTextField();
+		siteWeb.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		siteWeb.setColumns(10);
-		siteWeb.setBounds(127, 484, 290, 28);
+		siteWeb.setBounds(127, 551, 290, 28);
 		panel.add(siteWeb);
 		
 		telephone = new JTextField();
+		telephone.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		telephone.setColumns(10);
-		telephone.setBounds(127, 522, 290, 28);
+		telephone.setBounds(127, 589, 290, 28);
 		panel.add(telephone);
 		
-		lblNewLabel_4 = new JLabel("Theme");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_4.setBounds(10, 586, 103, 43);
+		lblNewLabel_4 = new JLabel("Th\u00E8me");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_4.setBounds(209, 613, 115, 43);
 		panel.add(lblNewLabel_4);
 		
 		theme = new JTextField();
+		theme.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		theme.setColumns(10);
-		theme.setBounds(127, 598, 290, 28);
+		theme.setBounds(127, 653, 290, 28);
 		panel.add(theme);
 		
-		btnNewButton = new JButton("Afficher *\r\n");
-		btnNewButton.addActionListener(new ActionListener() {
+		JLabel lblNewLabel_5 = new JLabel("Nom th\u00E8me");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5.setBounds(14, 650, 103, 31);
+		panel.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_5_1 = new JLabel("T\u00E9l\u00E9phone");
+		lblNewLabel_5_1.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_1.setBounds(14, 584, 103, 31);
+		panel.add(lblNewLabel_5_1);
+		
+		JLabel lblNewLabel_5_2 = new JLabel("Site Web");
+		lblNewLabel_5_2.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_2.setBounds(14, 543, 103, 31);
+		panel.add(lblNewLabel_5_2);
+		
+		JLabel lblNewLabel_5_3 = new JLabel("Adresse");
+		lblNewLabel_5_3.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_3.setBounds(14, 508, 103, 31);
+		panel.add(lblNewLabel_5_3);
+		
+		JLabel lblNewLabel_5_4 = new JLabel("Pr\u00E9nom");
+		lblNewLabel_5_4.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_4.setBounds(14, 470, 103, 31);
+		panel.add(lblNewLabel_5_4);
+		
+		JLabel lblNewLabel_5_5 = new JLabel("Nom");
+		lblNewLabel_5_5.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_5.setBounds(14, 432, 103, 31);
+		panel.add(lblNewLabel_5_5);
+		
+		JLabel lblNewLabel_5_5_1 = new JLabel("Titre");
+		lblNewLabel_5_5_1.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_5_1.setBounds(14, 203, 103, 31);
+		panel.add(lblNewLabel_5_5_1);
+		
+		JLabel lblNewLabel_5_4_1 = new JLabel("Sous-Titre");
+		lblNewLabel_5_4_1.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_4_1.setBounds(14, 241, 103, 31);
+		panel.add(lblNewLabel_5_4_1);
+		
+		JLabel lblNewLabel_5_3_1 = new JLabel("Date \u00E9dition");
+		lblNewLabel_5_3_1.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_3_1.setBounds(14, 281, 103, 31);
+		panel.add(lblNewLabel_5_3_1);
+		
+		JLabel lblNewLabel_5_2_1 = new JLabel("Code Ref");
+		lblNewLabel_5_2_1.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_2_1.setBounds(14, 317, 103, 31);
+		panel.add(lblNewLabel_5_2_1);
+		
+		JLabel lblNewLabel_5_1_1 = new JLabel("Type Doc");
+		lblNewLabel_5_1_1.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_1_1.setBounds(14, 358, 103, 31);
+		panel.add(lblNewLabel_5_1_1);
+		
+		JLabel lblNewLabel_5_5_1_1 = new JLabel("N\u00E9(e) le");
+		lblNewLabel_5_5_1_1.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_5_1_1.setBounds(14, 119, 103, 31);
+		panel.add(lblNewLabel_5_5_1_1);
+		
+		JLabel lblNewLabel_5_5_1_2 = new JLabel("Nom");
+		lblNewLabel_5_5_1_2.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_5_1_2.setBounds(14, 38, 103, 31);
+		panel.add(lblNewLabel_5_5_1_2);
+		
+		JLabel lblNewLabel_5_5_1_1_1 = new JLabel("Dec\u00E8s");
+		lblNewLabel_5_5_1_1_1.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_5_1_1_1.setBounds(240, 117, 72, 28);
+		panel.add(lblNewLabel_5_5_1_1_1);
+		
+		JLabel lblNewLabel_5_5_1_2_1 = new JLabel("Pr\u00E9nom");
+		lblNewLabel_5_5_1_2_1.setFont(new Font("Tahoma", Font.ITALIC, 18));
+		lblNewLabel_5_5_1_2_1.setBounds(14, 78, 103, 31);
+		panel.add(lblNewLabel_5_5_1_2_1);
+		
+		btnAfficher = new JButton("Afficher *\r\n");
+		btnAfficher.setBounds(552, 10, 204, 62);
+		btnAfficher.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
-				String user ="sa";
-				String mdp = "1234";
-				
-				try {
-					Connection con = DriverManager.getConnection(url,user,mdp);
-					String sql ="SELECT * FROM [Pgi].[dbo].[Documents]";
-					Statement stmt = con.createStatement();	
-					ResultSet rs = stmt.executeQuery(sql);	
-					while(rs.next()) {				
-						table.setModel(DbUtils.resultSetToTableModel(rs));
-					}
-				
-					con.close(); }
-				catch (SQLException e1)
-		         {
-		 e1.printStackTrace();
-		 } 				
+				afficher();
 			
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton.setBounds(556, 37, 204, 62);
-		frame.getContentPane().add(btnNewButton);
+		btnAfficher.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		frame.getContentPane().add(btnAfficher);
 	}
+	
+	private void afficher() {
+		
+		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
+		String user ="sa";
+		String mdp = "1234";
+		
+		try {
+			Connection con = DriverManager.getConnection(url,user,mdp);
+			String sql ="SELECT * FROM [Pgi].[dbo].[Documents]";
+			Statement stmt = con.createStatement();	
+			ResultSet rs = stmt.executeQuery(sql);	
+			while(rs.next()) {				
+				table.setModel(DbUtils.resultSetToTableModel(rs));
+			}
+		
+			con.close(); }
+		catch (SQLException e1)
+         {
+ e1.printStackTrace();
+ } 				
+	
+	}
+	
 }
