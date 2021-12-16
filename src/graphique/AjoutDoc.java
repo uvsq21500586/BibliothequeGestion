@@ -1,4 +1,6 @@
 package graphique;
+import connexion.AccesJDBC;
+import testC.MainC;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -11,10 +13,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.awt.event.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,6 +31,8 @@ import java.awt.SystemColor;
 import javax.swing.UIManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AjoutDoc {
 
@@ -74,12 +80,18 @@ public class AjoutDoc {
 	 */
 	public AjoutDoc() {
 		initialize();
+	
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
+		String user ="sa";
+		String mdp = "1234";
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(240, 248, 255));
 		frame.setBounds(100, 100, 1250, 820);
@@ -89,11 +101,7 @@ public class AjoutDoc {
 		btnAjouterDoc.setBounds(60, 10, 204, 62);
 		btnAjouterDoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
-				String user ="sa";
-				String mdp = "1234";
-				 
+								 
 				try {
 					Connection con = DriverManager.getConnection(url,user,mdp);
 					String sql= "insert into Auteurs(nom,prenom,dateNaissance,dateDeces)values(?,?,?,?)";	
@@ -148,19 +156,17 @@ public class AjoutDoc {
 		btnSupprimerDoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 try {
-					 String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
-						String user ="sa";
-						String mdp = "1234";
-						
-							Connection con = DriverManager.getConnection(url,user,mdp);
+					
+					Connection con = DriverManager.getConnection(url,user,mdp);
             
-						 String nom = table.getValueAt(table.getSelectedRow(), 0).toString();
+				    String nom = table.getValueAt(table.getSelectedRow(), 0).toString();
 					String query = "delete from Documents where id = '" + nom + "'";
-					   PreparedStatement stm1 = con.prepareStatement(query);
-			                  stm1.executeUpdate();		                  
-	                            
-							con.close();
-							afficher();
+					PreparedStatement stm1 = con.prepareStatement(query);
+			        stm1.executeUpdate();		                                              
+					con.close();
+					
+					
+					afficher();
 				 }
 					 
 			     catch (SQLException e1) {
@@ -292,6 +298,21 @@ public class AjoutDoc {
 		panel.add(siteWeb);
 		
 		telephone = new JTextField();
+		telephone.addKeyListener(new KeyAdapter() {
+		@Override
+		public void keyPressed(KeyEvent e) {
+			
+	     char c = e.getKeyChar();
+		    if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE))
+		    { e.consume(); 
+		    
+		    JOptionPane.showMessageDialog(null, "Numéros seulement", "Numéros"
+		    		, JOptionPane.INFORMATION_MESSAGE);
+		   telephone.setText("");
+		    } 
+			          
+			}
+		});
 		telephone.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		telephone.setColumns(10);
 		telephone.setBounds(127, 589, 290, 28);
@@ -394,8 +415,72 @@ public class AjoutDoc {
 		});
 		btnAfficher.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		frame.getContentPane().add(btnAfficher);
+		
+		JButton btnModifier = new JButton("Modifier");
+		btnModifier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modifier();
+			}
+			
+		});
+		btnModifier.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnModifier.setBounds(788, 10, 204, 62);
+		frame.getContentPane().add(btnModifier);
 	}
-	
+	private void modifier() {
+		
+		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
+		String user ="sa";
+		String mdp = "1234";
+		
+		
+        String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+	   		
+		
+		try { 
+
+			
+			Connection con = DriverManager.getConnection(url,user,mdp);
+			String sql= "Update Auteurs set nom=?,prenom=?,dateNaissance=?,dateDeces=? where id = '" +id +"'";	
+			String sql1 ="Update Documents set titre=?,sousTitre=?,dateEdition=?,codeReference=?,typeDocument=? where id = '" +id +"'";
+			String sql2= "Update Editeurs set nom=?,prenom=?,adresse=?,siteWeb=?,telephone=? where id = '" +id +"'";
+			String sql3="Update Themes set nom=? where id = '" +id +"'";
+			PreparedStatement stm = con.prepareStatement(sql);	
+			PreparedStatement stm1 = con.prepareStatement(sql1);
+			PreparedStatement stm2 = con.prepareStatement(sql2);
+			PreparedStatement stm3 = con.prepareStatement(sql3);
+			
+			// DBO AUTEURS
+			stm.setString(1, nom.getText());
+			stm.setString(2, prenom.getText());
+			stm.setString(3, dateNaissance.getText());
+			stm.setString(4, dateDeces.getText());
+			
+			//DBO DOCUMENTS
+			stm1.setString(1,titre.getText());
+			stm1.setString(2, sousTitre.getText());					
+			stm1.setString(3, dateEdition.getText());					
+			stm1.setString(4, codeReference.getText());
+			stm1.setString(5, typeDocument.getText());	
+			//DBO EDITEURS 
+			stm2.setString(1,nomEditeur.getText());
+			stm2.setString(2,prenomEditeur.getText());
+			stm2.setString(3,adresse.getText());
+			stm2.setString(4,siteWeb.getText());
+			stm2.setString(5,telephone.getText());
+			
+			// DBO THEMES
+			stm3.setString(1, theme.getText());
+			stm.executeUpdate();stm1.executeUpdate();stm2.executeUpdate();stm3.executeUpdate();
+			con.close();
+			afficher();
+		}
+				
+		catch (SQLException e1)
+         {
+ e1.printStackTrace();
+ } 
+	}
 	private void afficher() {
 		
 		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
@@ -409,6 +494,9 @@ public class AjoutDoc {
 			ResultSet rs = stmt.executeQuery(sql);	
 			while(rs.next()) {				
 				table.setModel(DbUtils.resultSetToTableModel(rs));
+				//remove column ID
+				
+				// table.removeColumn(table.getColumnModel().getColumn(0));
 			}
 		
 			con.close(); }
@@ -416,7 +504,6 @@ public class AjoutDoc {
          {
  e1.printStackTrace();
  } 				
-	
 	}
-	
-}
+	}
+
