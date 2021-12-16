@@ -23,8 +23,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import net.proteanit.sql.DbUtils;
 import java.awt.SystemColor;
@@ -80,13 +83,43 @@ public class AjoutDoc {
 	 */
 	public AjoutDoc() {
 		initialize();
+		afficher();
+		
 	
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
+	private void afficher() {
+		
+		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
+		String user ="sa";
+		String mdp = "1234";
+		
+		try {
+			Connection con = DriverManager.getConnection(url,user,mdp);
+			String sql ="SELECT * FROM [Pgi].[dbo].[Documents]";
+			Statement stmt = con.createStatement();	
+			ResultSet rs = stmt.executeQuery(sql);	
+			while(rs.next()) {				
+				table.setModel(DbUtils.resultSetToTableModel(rs));
+				//-------- remove column ID
+				
+				// table.removeColumn(table.getColumnModel().getColumn(0));
+			}
+		
+			con.close(); }
+		catch (SQLException e1)
+         {
+ e1.printStackTrace();
+ } 				
+	}
+	
+	
 	private void initialize() {
+		
 		
 		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
 		String user ="sa";
@@ -192,7 +225,7 @@ public class AjoutDoc {
 		lblNewLabel.setBounds(555, 3, 137, 37);
 		panel.add(lblNewLabel);
 		
-		textRecherche = new JTextField();
+		textRecherche = new JTextField();	
 		textRecherche.setBounds(702, 10, 292, 28);
 		panel.add(textRecherche);
 		textRecherche.setColumns(10);
@@ -202,6 +235,7 @@ public class AjoutDoc {
 		panel.add(scrollPane);
 		
 		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane.setViewportView(table);
 		
 		prenom = new JTextField();
@@ -481,29 +515,20 @@ public class AjoutDoc {
  e1.printStackTrace();
  } 
 	}
-	private void afficher() {
-		
-		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
-		String user ="sa";
-		String mdp = "1234";
-		
+/* POUR RECHERCHE AVEC BOUTON RECHERCHER
+ * 	public void actionPerformed(ActionEvent e) {
+		Connection con;
 		try {
-			Connection con = DriverManager.getConnection(url,user,mdp);
-			String sql ="SELECT * FROM [Pgi].[dbo].[Documents]";
-			Statement stmt = con.createStatement();	
-			ResultSet rs = stmt.executeQuery(sql);	
-			while(rs.next()) {				
-				table.setModel(DbUtils.resultSetToTableModel(rs));
-				//remove column ID
-				
-				// table.removeColumn(table.getColumnModel().getColumn(0));
-			}
-		
-			con.close(); }
-		catch (SQLException e1)
-         {
- e1.printStackTrace();
- } 				
-	}
+			con = DriverManager.getConnection(url,user,mdp);
+				String sql = "Select * from Documents where titre = ?";
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setString(1,textRecherche.getText());
+        stm.executeUpdate();	
+        con.close();
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} */
 	}
 
