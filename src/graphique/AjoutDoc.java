@@ -1,7 +1,5 @@
 package graphique;
 import connexion.AccesJDBC;
-import testC.MainC;
-
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -10,11 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.awt.event.*;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,17 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowFilter;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
-
-import net.proteanit.sql.DbUtils;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -84,6 +68,7 @@ public class AjoutDoc {
 	public AjoutDoc() {
 		initialize();
 		afficher();
+		ajouter();
 		
 	
 	}
@@ -91,23 +76,8 @@ public class AjoutDoc {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	
-	private void afficher() {
 
-			String sql ="SELECT * FROM [Pgi].[dbo].[Documents]";
-			 AccesJDBC.afficherDocumentAjout(sql, this);
-						
-			}
-		
-
-	
-	
 	private void initialize() {
-		
-		
-		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
-		String user ="sa";
-		String mdp = "1234";
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(240, 248, 255));
@@ -117,49 +87,8 @@ public class AjoutDoc {
 		JButton btnAjouterDoc = new JButton("Ajouter un document");
 		btnAjouterDoc.setBounds(60, 10, 204, 62);
 		btnAjouterDoc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-								 
-				try {
-					Connection con = DriverManager.getConnection(url,user,mdp);
-					String sql= "insert into Auteurs(nom,prenom,dateNaissance,dateDeces)values(?,?,?,?)";	
-					String sql1 ="insert into Documents(titre,sousTitre,dateEdition,codeReference,typeDocument)values(?,?,?,?,?)";
-					String sql2= "insert into Editeurs(nom,prenom,adresse,siteWeb,telephone)values(?,?,?,?,?)";
-					String sql3="insert into Themes(nom)values(?)";
-					PreparedStatement stm = con.prepareStatement(sql);	
-					PreparedStatement stm1 = con.prepareStatement(sql1);
-					PreparedStatement stm2 = con.prepareStatement(sql2);
-					PreparedStatement stm3 = con.prepareStatement(sql3);
-					
-					// DBO AUTEURS
-					stm.setString(1, nom.getText());
-					stm.setString(2, prenom.getText());
-					stm.setString(3, dateNaissance.getText());
-					stm.setString(4, dateDeces.getText());
-					
-					//DBO DOCUMENTS
-					stm1.setString(1,titre.getText());
-					stm1.setString(2, sousTitre.getText());					
-					stm1.setString(3, dateEdition.getText());					
-					stm1.setString(4, codeReference.getText());
-					stm1.setString(5, typeDocument.getText());	
-					//DBO EDITEURS 
-					stm2.setString(1,nomEditeur.getText());
-					stm2.setString(2,prenomEditeur.getText());
-					stm2.setString(3,adresse.getText());
-					stm2.setString(4,siteWeb.getText());
-					stm2.setString(5,telephone.getText());
-					
-					// DBO THEMES
-					stm3.setString(1, theme.getText());
-					stm.executeUpdate();stm1.executeUpdate();stm2.executeUpdate();stm3.executeUpdate();
-					con.close();
-					afficher();
-				}
-						
-				catch (SQLException e1)
-		         {
-		 e1.printStackTrace();
-		 } 		
+			public void actionPerformed(ActionEvent e) {							 
+			ajouter();		
 				
 			}
 		});
@@ -172,23 +101,7 @@ public class AjoutDoc {
 		btnSupprimerDoc.setBounds(305, 10, 204, 62);
 		btnSupprimerDoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 try {
-					
-					Connection con = DriverManager.getConnection(url,user,mdp);
-            
-				    String nom = table.getValueAt(table.getSelectedRow(), 0).toString();
-					String query = "delete from Documents where id = '" + nom + "'";
-					PreparedStatement stm1 = con.prepareStatement(query);
-			        stm1.executeUpdate();		                                              
-					con.close();
-					
-					
-					afficher();
-				 }
-					 
-			     catch (SQLException e1) {
-					e1.printStackTrace();
-					}  
+				supprimer();
 		
 			}
 		});
@@ -456,9 +369,25 @@ public class AjoutDoc {
 	   		
 		
 		try { 
-
 			
-			Connection con = DriverManager.getConnection(url,user,mdp);
+				String sql = "Update Auteurs set nom = nom.getText().toString() "
+	                    + prenom.getText().toString() + "', dateNaissance'" + dateNaissance.getText().toString() + "', dateDecès'"
+	                    + dateDeces.getText().toString() +  "'";
+				
+				String sql1 = "Update Documents set titre= "+ titre.getText().toString() + "', sousTitre'"
+	                    + sousTitre.getText().toString() + "', dateEdition='" + dateEdition.getText().toString() + "', codeReference='"
+	                    + codeReference.getText().toString() + "', typeDocument='" + "'" + typeDocument.getText().toString();
+	                    
+				String sql2 = "Update Editeurs set nom= " + nom.getText().toString() + "', prenom='"
+	                    + prenom.getText().toString() + "', adresse='" + adresse.getText().toString() + "', siteweb='"
+	                    + siteWeb.getText().toString() + "', telephone=" + telephone.getText().toString();
+	                     
+				String sql3 = "Update Themes set  nom = " + nom.getText().toString() +"";
+				
+					AccesJDBC.ajouterDocumentAjout(sql,sql1,sql2,sql3);
+					
+			
+	/*		Connection con = DriverManager.getConnection(url,user,mdp);
 			String sql= "Update Auteurs set nom=?,prenom=?,dateNaissance=?,dateDeces=? where id = '" +id +"'";	
 			String sql1 ="Update Documents set titre=?,sousTitre=?,dateEdition=?,codeReference=?,typeDocument=? where id = '" +id +"'";
 			String sql2= "Update Editeurs set nom=?,prenom=?,adresse=?,siteWeb=?,telephone=? where id = '" +id +"'";
@@ -490,7 +419,7 @@ public class AjoutDoc {
 			// DBO THEMES
 			stm3.setString(1, theme.getText());
 			stm.executeUpdate();stm1.executeUpdate();stm2.executeUpdate();stm3.executeUpdate();
-			con.close();
+			con.close();    */
 			afficher();
 		}
 				
@@ -499,6 +428,86 @@ public class AjoutDoc {
  e1.printStackTrace();
  } 
 	}
+	
+	public void ajouter() {
+		
+		try {
+			String sql = "insert into Auteurs values ('" + nom.getText().toString() + "','"
+                    + prenom.getText().toString() + "','" + dateNaissance.getText().toString() + "','"
+                    + dateDeces.getText().toString() +  "')";
+			
+			String sql1 = "insert into Documents values ('" + titre.getText().toString() + "','"
+                    + sousTitre.getText().toString() + "','" + dateEdition.getText().toString() + "','"
+                    + codeReference.getText().toString() + "'," + "'" + typeDocument.getText().toString()
+                    + "')";
+			String sql2 = "insert into Editeurs values ('" + nom.getText().toString() + "','"
+                    + prenom.getText().toString() + "','" + adresse.getText().toString() + "','"
+                    + siteWeb.getText().toString() + "'," + "'" + telephone.getText().toString()
+                    + "')";
+			String sql3 = "insert into Themes values ('" + nom.getText().toString() + "')";
+			
+				AccesJDBC.ajouterDocumentAjout(sql,sql1,sql2,sql3);
+
+/*			Connection con = DriverManager.getConnection(url,user,mdp);
+			String sql= "insert into Auteurs (nom,prenom,dateNaissance,dateDeces)values(?,?,?,?)";	
+			String sql1 ="insert into Documents(titre,sousTitre,dateEdition,codeReference,typeDocument)values(?,?,?,?,?)";
+			String sql2= "insert into Editeurs(nom,prenom,adresse,siteWeb,telephone)values(?,?,?,?,?)";
+			String sql3="insert into Themes(nom)values(?)";
+			PreparedStatement stm = con.prepareStatement(sql);	
+			PreparedStatement stm1 = con.prepareStatement(sql1);
+			PreparedStatement stm2 = con.prepareStatement(sql2);
+			PreparedStatement stm3 = con.prepareStatement(sql3);
+			
+			// DBO AUTEURS
+			stm.setString(1, nom.getText());
+			stm.setString(2, prenom.getText());
+			stm.setString(3, dateNaissance.getText());
+			stm.setString(4, dateDeces.getText());
+			
+			//DBO DOCUMENTS
+			stm1.setString(1,titre.getText());
+			stm1.setString(2, sousTitre.getText());					
+			stm1.setString(3, dateEdition.getText());					
+			stm1.setString(4, codeReference.getText());
+			stm1.setString(5, typeDocument.getText());	
+			//DBO EDITEURS 
+			stm2.setString(1,nomEditeur.getText());
+			stm2.setString(2,prenomEditeur.getText());
+			stm2.setString(3,adresse.getText());
+			stm2.setString(4,siteWeb.getText());
+			stm2.setString(5,telephone.getText());
+			
+			// DBO THEMES
+			stm3.setString(1, theme.getText());
+			stm.executeUpdate();stm1.executeUpdate();stm2.executeUpdate();stm3.executeUpdate();
+			con.close();
+			*/
+			afficher();
+		}
+				
+		catch (SQLException e1)
+         {
+ e1.printStackTrace();
+ } 
+	}
+		public void supprimer() {
+						        
+				    String nom = table.getValueAt(table.getSelectedRow(), 0).toString();
+					String query = "delete from Documents where id = '" + nom + "'";
+								
+			        AccesJDBC.SupprimerDoc(query, this);
+					
+					afficher();
+				 }
+
+		private void afficher() {
+
+			String sql ="SELECT * FROM [Pgi].[dbo].[Documents]";
+			 AccesJDBC.afficherDocumentAjout(sql, this);
+						
+			}
+		
+		
 /* POUR RECHERCHE AVEC BOUTON RECHERCHER
  * 	public void actionPerformed(ActionEvent e) {
 		Connection con;
