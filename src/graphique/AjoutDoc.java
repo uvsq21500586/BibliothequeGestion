@@ -42,7 +42,7 @@ public class AjoutDoc {
 	JFrame frame;
 	private JTextField textRecherche;
 	private JButton btnAfficher;
-	private JTable table;
+	public JTable table;
 	private JTextField prenom;
 	private JTextField dateDeces;
 	private JTextField dateNaissance;
@@ -93,29 +93,13 @@ public class AjoutDoc {
 	 */
 	
 	private void afficher() {
-		
-		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
-		String user ="sa";
-		String mdp = "1234";
-		
-		try {
-			Connection con = DriverManager.getConnection(url,user,mdp);
+
 			String sql ="SELECT * FROM [Pgi].[dbo].[Documents]";
-			Statement stmt = con.createStatement();	
-			ResultSet rs = stmt.executeQuery(sql);	
-			while(rs.next()) {				
-				table.setModel(DbUtils.resultSetToTableModel(rs));
-				//-------- remove column ID
-				
-				// table.removeColumn(table.getColumnModel().getColumn(0));
+			 AccesJDBC.afficherDocumentAjout(sql, this);
+						
 			}
 		
-			con.close(); }
-		catch (SQLException e1)
-         {
- e1.printStackTrace();
- } 				
-	}
+
 	
 	
 	private void initialize() {
