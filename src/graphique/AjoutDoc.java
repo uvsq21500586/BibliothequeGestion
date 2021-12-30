@@ -5,10 +5,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -68,8 +64,6 @@ public class AjoutDoc {
 	public AjoutDoc() {
 		initialize();
 		afficher();
-		ajouter();
-		
 	
 	}
 
@@ -359,11 +353,7 @@ public class AjoutDoc {
 		frame.getContentPane().add(btnModifier);
 	}
 	private void modifier() {
-		
-		String url="jdbc:sqlserver://DESKTOP-RRKJRL7\\SQLEXPRESS; databaseName=Pgi";
-		String user ="sa";
-		String mdp = "1234";
-		
+			
 		
         String id = table.getValueAt(table.getSelectedRow(), 0).toString();
 	   		
@@ -372,19 +362,20 @@ public class AjoutDoc {
 			
 				String sql = "Update Auteurs set nom = nom.getText().toString() "
 	                    + prenom.getText().toString() + "', dateNaissance'" + dateNaissance.getText().toString() + "', dateDecès'"
-	                    + dateDeces.getText().toString() +  "'";
+	                    + dateDeces.getText().toString() +  "' where id = '" +id +"'";
 				
 				String sql1 = "Update Documents set titre= "+ titre.getText().toString() + "', sousTitre'"
 	                    + sousTitre.getText().toString() + "', dateEdition='" + dateEdition.getText().toString() + "', codeReference='"
-	                    + codeReference.getText().toString() + "', typeDocument='" + "'" + typeDocument.getText().toString();
+	                    + codeReference.getText().toString() + "', typeDocument='" + "'" + typeDocument.getText().toString()
+	                    +  "' where id = '" +id +"'";
 	                    
 				String sql2 = "Update Editeurs set nom= " + nom.getText().toString() + "', prenom='"
 	                    + prenom.getText().toString() + "', adresse='" + adresse.getText().toString() + "', siteweb='"
-	                    + siteWeb.getText().toString() + "', telephone=" + telephone.getText().toString();
+	                    + siteWeb.getText().toString() + "', telephone=" + telephone.getText().toString() +  "' where id = '" +id +"'";
 	                     
 				String sql3 = "Update Themes set  nom = " + nom.getText().toString() +"";
 				
-					AccesJDBC.ajouterDocumentAjout(sql,sql1,sql2,sql3);
+					AccesJDBC.modifierDocumentAjout(sql,sql1,sql2,sql3);
 					
 			
 	/*		Connection con = DriverManager.getConnection(url,user,mdp);
@@ -423,7 +414,7 @@ public class AjoutDoc {
 			afficher();
 		}
 				
-		catch (SQLException e1)
+		catch (Exception e1)
          {
  e1.printStackTrace();
  } 
@@ -485,17 +476,17 @@ public class AjoutDoc {
 			afficher();
 		}
 				
-		catch (SQLException e1)
+		catch (Exception e1)
          {
  e1.printStackTrace();
  } 
 	}
 		public void supprimer() {
 						        
-				    String nom = table.getValueAt(table.getSelectedRow(), 0).toString();
-					String query = "delete from Documents where id = '" + nom + "'";
+				    String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+					String query = "delete from Documents where id = '" + id + "'";
 								
-			        AccesJDBC.SupprimerDoc(query, this);
+			        AccesJDBC.SupprimerDoc(query);
 					
 					afficher();
 				 }
@@ -507,21 +498,5 @@ public class AjoutDoc {
 						
 			}
 		
-		
-/* POUR RECHERCHE AVEC BOUTON RECHERCHER
- * 	public void actionPerformed(ActionEvent e) {
-		Connection con;
-		try {
-			con = DriverManager.getConnection(url,user,mdp);
-				String sql = "Select * from Documents where titre = ?";
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setString(1,textRecherche.getText());
-        stm.executeUpdate();	
-        con.close();
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} */
 	}
 
