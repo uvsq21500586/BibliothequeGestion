@@ -360,7 +360,7 @@ public class AjoutDoc {
 		
 		try { 
 			
-				String sql = "Update Auteurs set nom = nom.getText().toString() "
+				String sql = "Update Auteurs set nom ="+ nom.getText().toString()+ "', prenom ='"
 	                    + prenom.getText().toString() + "', dateNaissance'" + dateNaissance.getText().toString() + "', dateDecès'"
 	                    + dateDeces.getText().toString() +  "' where id = '" +id +"'";
 				
@@ -423,19 +423,20 @@ public class AjoutDoc {
 	public void ajouter() {
 		
 		try {
-			String sql = "insert into Auteurs values ('" + nom.getText().toString() + "','"
-                    + prenom.getText().toString() + "','" + dateNaissance.getText().toString() + "','"
-                    + dateDeces.getText().toString() +  "')";
+			String sql = "insert into Auteurs (nom,prenom,dateNaissance,dateDeces)  values ('" + nom.getText() + "','"
+                    + prenom.getText() + "','" + dateNaissance.getText().toString() + "','"
+                    + dateDeces.getText().toString() + "')";
 			
-			String sql1 = "insert into Documents values ('" + titre.getText().toString() + "','"
-                    + sousTitre.getText().toString() + "','" + dateEdition.getText().toString() + "','"
-                    + codeReference.getText().toString() + "'," + "'" + typeDocument.getText().toString()
+			String sql1 = "insert into Documents (titre,soustitre,dateEdition,codeReference,typeDocument) values ('" + titre.getText().toString()
+					+ "','" + sousTitre.getText().toString() + "','" + dateEdition.getText().toString() + "','"
+                    + codeReference.getText().toString() + "'," + "'" + typeDocument.getText()
                     + "')";
-			String sql2 = "insert into Editeurs values ('" + nom.getText().toString() + "','"
-                    + prenom.getText().toString() + "','" + adresse.getText().toString() + "','"
+			String sql2 = "insert into Editeurs(nom,prenom,adresse,siteWeb,telephone) values ('" + nom.getText() + "','"
+                    + prenom.getText() + "','" + adresse.getText().toString() + "','"
                     + siteWeb.getText().toString() + "'," + "'" + telephone.getText().toString()
                     + "')";
-			String sql3 = "insert into Themes values ('" + nom.getText().toString() + "')";
+			String sql3 = "insert into Themes (nom) values ('" + nom.getText() + "')";
+			
 			
 				AccesJDBC.ajouterDocumentAjout(sql,sql1,sql2,sql3);
 
@@ -491,7 +492,7 @@ public class AjoutDoc {
 					afficher();
 				 }
 
-		private void afficher() {
+		public void afficher() {
 
 			String sql ="SELECT * FROM [Pgi].[dbo].[Documents]";
 			 AccesJDBC.afficherDocumentAjout(sql, this);
