@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 
 public class Authentification {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
 

@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,7 +17,10 @@ import javax.swing.border.TitledBorder;
 
 public class Menu {
 
-	private JFrame frameMenu;
+	public String statut = "Adherent";
+	// statut "Gerant" ou "Adherent"
+
+	public JFrame frameMenu;
 
 	/**
 	 * Launch the application.
@@ -40,6 +45,11 @@ public class Menu {
 		initialize();
 	}
 
+	public Menu(String statut) {
+		this.statut = statut;
+		initialize();
+	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -54,6 +64,13 @@ public class Menu {
 		frameMenu.getContentPane().add(lblNewLabel);
 
 		JButton buttonCatalogue = new JButton("Catalogue");
+
+		buttonCatalogue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Catalogue cat = new Catalogue();
+				cat.frameCatalogue.setVisible(true);
+			}
+		});
 		buttonCatalogue.setBounds(10, 59, 150, 21);
 		frameMenu.getContentPane().add(buttonCatalogue);
 		ImageIcon image = new ImageIcon((new ImageIcon("images/catalogue.png")).getImage()
@@ -61,13 +78,25 @@ public class Menu {
 		buttonCatalogue.setIcon(image);
 
 		JButton buttonMessages = new JButton("Messages");
+		buttonMessages.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Messagerie me = new Messagerie();
+				me.frameMessagerie.setVisible(true);
+
+			}
+		});
 		buttonMessages.setBounds(10, 152, 150, 21);
 		frameMenu.getContentPane().add(buttonMessages);
 		image = new ImageIcon((new ImageIcon("images/messagerie.png")).getImage()
 				.getScaledInstance(buttonMessages.getHeight(), buttonMessages.getHeight(), Image.SCALE_DEFAULT));
 		buttonMessages.setIcon(image);
-
 		JButton buttonStatistiques = new JButton("Statistiques");
+		buttonStatistiques.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Statistiques Se = new Statistiques();
+				Se.frmStatistiques.setVisible(true);
+			}
+		});
 		buttonStatistiques.setBounds(10, 90, 150, 21);
 		frameMenu.getContentPane().add(buttonStatistiques);
 		image = new ImageIcon((new ImageIcon("images/statistique.png")).getImage().getScaledInstance(
@@ -75,10 +104,29 @@ public class Menu {
 		buttonStatistiques.setIcon(image);
 
 		JButton buttonEmprunts = new JButton("Emprunts");
+
+		buttonEmprunts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (statut.equals("Adherent")) {
+					AdhérantEmprunt adherentEmprunt = new AdhérantEmprunt();
+					adherentEmprunt.frmGestionemprunt.setVisible(true);
+				} else {
+					Emprunt emprunt = new Emprunt();
+					emprunt.GESTON_EMPRUNTS.setVisible(true);
+				}
+			}
+		});
+
 		buttonEmprunts.setBounds(10, 121, 150, 21);
 		frameMenu.getContentPane().add(buttonEmprunts);
 
-		JButton buttonDeconnexion = new JButton("D\u00E9connexion");
+		JButton buttonDeconnexion = new JButton("Déconnexion");
+		buttonDeconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frameMenu.dispose();
+				Authentification.main(null);
+			}
+		});
 		buttonDeconnexion.setMargin(new Insets(2, 5, 2, 5));
 		buttonDeconnexion.setBounds(276, 232, 150, 21);
 		frameMenu.getContentPane().add(buttonDeconnexion);
@@ -88,19 +136,33 @@ public class Menu {
 
 		JPanel panelGerant = new JPanel();
 		panelGerant.setBorder(
-				new TitledBorder(null, "G\u00E9rant uniquement", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(null, "Gérant uniquement", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelGerant.setBackground(new Color(102, 205, 170));
 		panelGerant.setBounds(211, 47, 215, 100);
 		frameMenu.getContentPane().add(panelGerant);
 		panelGerant.setLayout(null);
-
+		if (statut.equals("Adherent")) {
+			panelGerant.setVisible(false);
+		}
 		JButton buttonGestionLogins = new JButton("Gestion logins");
+		buttonGestionLogins.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Gérant fenetreGerant = new Gérant();
+				fenetreGerant.frmGestions.setVisible(true);
+			}
+		});
 		buttonGestionLogins.setBounds(20, 22, 185, 21);
 		panelGerant.add(buttonGestionLogins);
 
-		JButton btnNewButton = new JButton("Gestion des documents");
-		btnNewButton.setBounds(20, 62, 185, 21);
-		panelGerant.add(btnNewButton);
+		JButton buttonGestionDocuments = new JButton("Gestion des documents");
+		buttonGestionDocuments.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AjoutDoc fenetreGerant = new AjoutDoc();
+				fenetreGerant.frame.setVisible(true);
+			}
+		});
+		buttonGestionDocuments.setBounds(20, 62, 185, 21);
+		panelGerant.add(buttonGestionDocuments);
 		frameMenu.setTitle("Menu");
 		frameMenu.setBounds(100, 100, 450, 300);
 		frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

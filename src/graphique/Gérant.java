@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 
 public class Gérant {
 
-	private JFrame frmGestions;
+	public JFrame frmGestions;
 
 	/**
 	 * Launch the application.

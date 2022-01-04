@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 public class AdhérantEmprunt {
 
-	private JFrame frmGestionemprunt;
+	public JFrame frmGestionemprunt;
 	private JTextField textField;
 	private JTextField textField_2;
 	private JTable table;

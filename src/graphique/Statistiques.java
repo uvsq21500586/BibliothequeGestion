@@ -16,7 +16,7 @@ import javax.swing.border.TitledBorder;
 
 public class Statistiques {
 
-	private JFrame frmStatistiques;
+	public JFrame frmStatistiques;
 
 	/**
 	 * Launch the application.

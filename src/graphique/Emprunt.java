@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class Emprunt {
 
-	private JFrame GESTON_EMPRUNTS;
+	public JFrame GESTON_EMPRUNTS;
 	private JTextField textField;
 	private JTextField textField_1;
 

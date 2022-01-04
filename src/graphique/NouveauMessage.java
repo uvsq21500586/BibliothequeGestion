@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class NouveauMessage {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField textFieldSujetMsg;
 	private JTextField textFieldMail;
 

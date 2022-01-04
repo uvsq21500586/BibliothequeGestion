@@ -64,6 +64,9 @@ public class AjoutDoc {
 	public AjoutDoc() {
 		initialize();
 		afficher();
+		ajouter();
+		supprimer();
+		modifier();
 	
 	}
 
@@ -360,18 +363,18 @@ public class AjoutDoc {
 		
 		try { 
 			
-				String sql = "Update Auteurs set nom ="+ nom.getText().toString()+ "', prenom ='"
-	                    + prenom.getText().toString() + "', dateNaissance'" + dateNaissance.getText().toString() + "', dateDecès'"
-	                    + dateDeces.getText().toString() +  "' where id = '" +id +"'";
+				String sql = "Update Auteurs set nom = '"+ nom.getText().toString()+ "' prenom= '"
+	                    + prenom.getText().toString() + "' dateNaissance" + dateNaissance.getText().toString() + " dateDecès"
+	                    + dateDeces.getText().toString() +  " where id = " +id +"";
 				
-				String sql1 = "Update Documents set titre= "+ titre.getText().toString() + "', sousTitre'"
-	                    + sousTitre.getText().toString() + "', dateEdition='" + dateEdition.getText().toString() + "', codeReference='"
-	                    + codeReference.getText().toString() + "', typeDocument='" + "'" + typeDocument.getText().toString()
-	                    +  "' where id = '" +id +"'";
+				String sql1 = "Update Documents set titre= "+ titre.getText().toString() + " sousTitre"
+	                    + sousTitre.getText().toString() + " dateEdition=" + dateEdition.getText().toString() + " codeReference="
+	                    + codeReference.getText().toString() + " typeDocument=" + "'" + typeDocument.getText().toString()
+	                    +  " where id = " +id +"";
 	                    
-				String sql2 = "Update Editeurs set nom= " + nom.getText().toString() + "', prenom='"
-	                    + prenom.getText().toString() + "', adresse='" + adresse.getText().toString() + "', siteweb='"
-	                    + siteWeb.getText().toString() + "', telephone=" + telephone.getText().toString() +  "' where id = '" +id +"'";
+				String sql2 = "Update Editeurs set nom= " + nom.getText().toString() + " prenom="
+	                    + prenom.getText().toString() + " adresse=" + adresse.getText().toString() + " siteweb="
+	                    + siteWeb.getText().toString() + " telephone=" + telephone.getText().toString() +  " where id = " +id +"";
 	                     
 				String sql3 = "Update Themes set  nom = " + nom.getText().toString() +"";
 				
@@ -423,22 +426,23 @@ public class AjoutDoc {
 	public void ajouter() {
 		
 		try {
-			String sql = "insert into Auteurs (nom,prenom,dateNaissance,dateDeces)  values ('" + nom.getText() + "','"
+			
+			String sql = "insert into Auteurs (nom,prenom,dateNaissance,dateDeces) values ('" + nom.getText() + "','"
                     + prenom.getText() + "','" + dateNaissance.getText().toString() + "','"
                     + dateDeces.getText().toString() + "')";
 			
 			String sql1 = "insert into Documents (titre,soustitre,dateEdition,codeReference,typeDocument) values ('" + titre.getText().toString()
 					+ "','" + sousTitre.getText().toString() + "','" + dateEdition.getText().toString() + "','"
-                    + codeReference.getText().toString() + "'," + "'" + typeDocument.getText()
+                    + codeReference.getText().toString() + "','" + typeDocument.getText()
                     + "')";
 			String sql2 = "insert into Editeurs(nom,prenom,adresse,siteWeb,telephone) values ('" + nom.getText() + "','"
                     + prenom.getText() + "','" + adresse.getText().toString() + "','"
-                    + siteWeb.getText().toString() + "'," + "'" + telephone.getText().toString()
+                    + siteWeb.getText().toString() + "','" + telephone.getText().toString()
                     + "')";
 			String sql3 = "insert into Themes (nom) values ('" + nom.getText() + "')";
-			
-			
+
 				AccesJDBC.ajouterDocumentAjout(sql,sql1,sql2,sql3);
+				afficher();
 
 /*			Connection con = DriverManager.getConnection(url,user,mdp);
 			String sql= "insert into Auteurs (nom,prenom,dateNaissance,dateDeces)values(?,?,?,?)";	
@@ -474,9 +478,9 @@ public class AjoutDoc {
 			stm.executeUpdate();stm1.executeUpdate();stm2.executeUpdate();stm3.executeUpdate();
 			con.close();
 			*/
-			afficher();
+			
 		}
-				
+			
 		catch (Exception e1)
          {
  e1.printStackTrace();
@@ -486,18 +490,18 @@ public class AjoutDoc {
 						        
 				    String id = table.getValueAt(table.getSelectedRow(), 0).toString();
 					String query = "delete from Documents where id = '" + id + "'";
+					String query1 = "delete from Auteurs where id = '" + id + "'";
 								
-			        AccesJDBC.SupprimerDoc(query);
+			        AccesJDBC.SupprimerDoc(query,query1);
 					
 					afficher();
 				 }
 
 		public void afficher() {
 
-			String sql ="SELECT * FROM [Pgi].[dbo].[Documents]";
+			String sql ="SELECT * FROM [Pgi].[dbo].[Auteurs]";
 			 AccesJDBC.afficherDocumentAjout(sql, this);
 						
-			}
-		
+			}		
 	}
 

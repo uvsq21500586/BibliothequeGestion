@@ -186,11 +186,12 @@ public class AccesJDBC {
 	
 	
 
-	public static void SupprimerDoc(String query) {
+
+	public static void SupprimerDoc(String query,String query1) {
 		// fonctionne pour des requêtes qui donnent un nombre entier
 		System.out.println(query);
 		try {
-			stm.executeQuery(query);
+			stm.executeQuery(query);stm.executeQuery(query1);
 
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block

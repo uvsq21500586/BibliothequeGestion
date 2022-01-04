@@ -11,7 +11,7 @@ import javax.swing.JTextPane;
 
 public class Messagerie {
 
-	private JFrame frameMessagerie;
+	public JFrame frameMessagerie;
 
 	/**
 	 * Launch the application.

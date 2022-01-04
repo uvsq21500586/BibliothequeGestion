@@ -14,7 +14,7 @@ import javax.swing.SwingConstants;
 
 public class Addcompte {
 
-	private JFrame frmInscription;
+	public JFrame frmInscription;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
